@@ -2,8 +2,8 @@
 
 namespace Dipghosh\LaravelEnvChecker\Commands;
 
+use Dipghosh\LaravelEnvChecker\Checks\PhpVersionCheck;
 use Illuminate\Console\Command;
-use YourName\EnvDoctor\Checks\PhpVersionCheck;
 use YourName\EnvDoctor\Checks\AppDebugCheck;
 
 class EnvDoctorCommand extends Command
