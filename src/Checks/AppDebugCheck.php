@@ -1,28 +1,28 @@
 <?php
 
-namespace YourName\EnvDoctor\Checks;
+namespace Dipghosh\LaravelEnvChecker\Checks;
 
-use Dipghosh\LaravelEnvChecker\Checks\CheckInterface;
+use Dipghosh\LaravelEnvChecker\Checks\Support\CheckResult;
 
-class AppDebugCheck implements CheckInterface
+final class AppDebugCheck extends AbstractCheck
 {
     public function name(): string
     {
         return 'APP_DEBUG';
     }
 
-    public function run(): array
+    protected function evaluate(): CheckResult
     {
-        if (app()->environment('production') && config('app.debug')) {
-            return [
-                'status' => 'error',
-                'message' => 'Enabled in production',
-            ];
+        if (! function_exists('config') || ! function_exists('app')) {
+            return CheckResult::warning('Laravel not detected');
         }
 
-        return [
-            'status' => 'ok',
-            'message' => config('app.debug') ? 'Enabled' : 'Disabled',
-        ];
+        if (app()->environment('production') && config('app.debug')) {
+            return CheckResult::error('Enabled in production');
+        }
+
+        return CheckResult::ok(
+            config('app.debug') ? 'Enabled' : 'Disabled'
+        );
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Dipghosh\LaravelEnvChecker\Commands;
 
+use Dipghosh\LaravelEnvChecker\Checks\AppDebugCheck;
 use Dipghosh\LaravelEnvChecker\Checks\PhpVersionCheck;
 use Illuminate\Console\Command;
-use YourName\EnvDoctor\Checks\AppDebugCheck;
 
-class EnvDoctorCommand extends Command
+class EnvCheckerCommand extends Command
 {
-    protected $signature = 'env:doctor';
+    protected $signature = 'env:checker';
 
     protected $description = 'Check Laravel environment health';
 
@@ -26,9 +26,9 @@ class EnvDoctorCommand extends Command
             $result = $check->run();
 
             match ($result['status']) {
-                'ok' => $this->line('✅ ' . $check->name() . ': ' . $result['message']),
-                'warning' => $this->warn('⚠ ' . $check->name() . ': ' . $result['message']),
-                'error' => $this->error('❌ ' . $check->name() . ': ' . $result['message']),
+                'ok'      => $this->line('✅ '.$check->name().': '.$result['message']),
+                'warning' => $this->warn('⚠ '.$check->name().': '.$result['message']),
+                'error'   => $this->error('❌ '.$check->name().': '.$result['message']),
             };
         }
     }

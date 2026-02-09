@@ -2,25 +2,21 @@
 
 namespace Dipghosh\LaravelEnvChecker\Checks;
 
-class PhpVersionCheck implements CheckInterface
+use Dipghosh\LaravelEnvChecker\Checks\Support\CheckResult;
+
+final class PhpVersionCheck extends AbstractCheck
 {
     public function name(): string
     {
         return 'PHP Version';
     }
 
-    public function run(): array
+    protected function evaluate(): CheckResult
     {
         if (version_compare(PHP_VERSION, '8.1.0', '>=')) {
-            return [
-                'status' => 'ok',
-                'message' => PHP_VERSION,
-            ];
+            return CheckResult::ok(PHP_VERSION);
         }
 
-        return [
-            'status' => 'error',
-            'message' => 'PHP 8.1+ required',
-        ];
+        return CheckResult::error('PHP 8.1+ required');
     }
 }

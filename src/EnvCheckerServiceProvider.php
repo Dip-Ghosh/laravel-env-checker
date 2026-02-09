@@ -3,7 +3,7 @@
 namespace Dipghosh\LaravelEnvChecker;
 
 use Illuminate\Support\ServiceProvider;
-use Dipghosh\LaravelEnvChecker\Commands\EnvDoctorCommand;
+use Dipghosh\LaravelEnvChecker\Commands\EnvCheckerCommand;
 
 class EnvCheckerServiceProvider extends ServiceProvider
 {
@@ -11,7 +11,7 @@ class EnvCheckerServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                EnvDoctorCommand::class,
+                EnvCheckerCommand::class,
             ]);
         }
     }
