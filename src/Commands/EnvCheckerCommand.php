@@ -25,10 +25,10 @@ class EnvCheckerCommand extends Command
         foreach ($checks as $check) {
             $result = $check->run();
 
-            match ($result['status']) {
-                'ok'      => $this->line('✅ '.$check->name().': '.$result['message']),
-                'warning' => $this->warn('⚠ '.$check->name().': '.$result['message']),
-                'error'   => $this->error('❌ '.$check->name().': '.$result['message']),
+            match ($result->status) {
+                'ok'      => $this->line('✅ '.$check->name().': '.$result->message),
+                'warning' => $this->warn('⚠ '.$check->name().': '.$result->message),
+                'error'   => $this->error('❌ '.$check->name().': '.$result->message),
             };
         }
     }
